@@ -1,0 +1,104 @@
+-- Database: `bus_reservation`
+-- Table structure for table `bookticket_bookaticket`
+--
+
+CREATE TABLE IF NOT EXISTS `bookticket_bookaticket` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `booking_date` datetime(6) NOT NULL,
+  `status` varchar(2) NOT NULL,
+  `ip_address` char(39) NOT NULL,
+  `last_updated` datetime(6) NOT NULL,
+  `date` datetime(6) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `booking_seats_num` int(11) NOT NULL,
+  `fare` decimal(9,2) NOT NULL,
+  `bus_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `bookTicket_bookaticket_bus_id_7f7e68e1_fk_busrv_busInfo_id` (`bus_id`),
+  KEY `bookTicket_bookaticket_user_id_398ddaae_fk_auth_user_id` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `bookticket_bookaticket`
+--
+
+INSERT INTO `bookticket_bookaticket` (`id`, `booking_date`, `status`, `ip_address`, `last_updated`, `date`, `email`, `phone`, `booking_seats_num`, `fare`, `bus_id`, `user_id`) VALUES
+(1, '2020-03-17 13:30:00.000000', 'R', '127.0.0.1', '2016-03-17 17:14:08.402827', '2016-03-17 17:14:08.402827', 'rishitha@gmail.com', '6134567890', 4, '500.00', 2, 1),
+(2, '2016-03-17 17:00:00.000000', 'C', '127.0.0.1', '2016-03-19 15:57:29.083906', '2016-03-17 17:21:10.925255', 'konatham@gmail.com', '9876543210', 5, '500.00', 2, 1),
+(3, '2016-03-25 22:24:00.000000', 'P', '127.0.0.1', '2016-03-19 20:43:54.148685', '2016-03-19 20:43:54.148685', 'k18tg@gmail.com', '8958634125', 2, '300.00', 1, 4),
+(4, '2016-03-20 24:00:00.000000', 'C', '127.0.0.1', '2016-03-20 16:25:48.154196', '2016-03-20 16:21:15.411596', 'studentsgmail.com', '9920805049', 3, '300.00', 1, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `busrv_busdroparea`
+--
+
+CREATE TABLE IF NOT EXISTS `busrv_busdroparea` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `area_name` varchar(50) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `busrv_busdroparea`
+--
+
+INSERT INTO `busrv_busdroparea` (`id`, `area_name`, `slug`, `created_at`, `updated_at`) VALUES
+(1, 'lpu', 'jalandhar', '2016-03-11 19:26:45.624703', '2016-03-11 19:26:45.624703'),
+(2, 'Swargate(pune)', 'swargatepune', '2016-03-11 19:27:06.075873', '2016-03-11 19:27:06.075873');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `busrv_businfo`
+--
+
+CREATE TABLE IF NOT EXISTS `busrv_businfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `bus_name` varchar(50) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `bus_description` longtext NOT NULL,
+  `type` varchar(10) NOT NULL,
+  `arriving_time` time(6) NOT NULL,
+  `depature_time` time(6) NOT NULL,
+  `fare` decimal(9,2) NOT NULL,
+  `no_of_seats` int(11) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `arriving_from_id` int(11) NOT NULL,
+  `depature_at_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`),
+  KEY `busrv_busInfo_4a888a93` (`arriving_from_id`),
+  KEY `busrv_busInfo_16dac3c0` (`depature_at_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `busrv_businfo`
+--
+
+INSERT INTO `busrv_businfo` (`id`, `bus_name`, `slug`, `bus_description`, `type`, `arriving_time`, `depature_time`, `fare`, `no_of_seats`, `is_active`, `created_at`, `updated_at`, `image`, `arriving_from_id`, `depature_at_id`) VALUES
+(1, 'Rishi Bus Travels', 'Rishi-bus', 'With online reservation we provide advance booking facilities in our hotels. The hospitality and versatility that we showcase in all our functional areas has made us one of the leading tours & travels companies in India. Every year, we serve millions of travelers. Smiles on their faces are the greatest reward we have ever got.', 'AC', '06:00:00.000000', '18:00:00.000000', '300.00', 43, 1, '2016-03-11 19:35:51.355917', '2016-03-14 18:18:25.710599', 'images/bus/main/volvo1.jpg', 1, 2),
+(2, 'Jyoti travels', 'jyoti-travels', 'A Destination for the New Millennium.\r\nA different light.\r\nA new point of view.\r\nA signature of excellence.\r\nA tradition of excellence.', 'AC', '06:00:00.000000', '12:00:00.000000', '500.00', 50, 1, '2016-03-14 17:07:00.968717', '2016-03-14 18:01:06.644974', 'images/bus/main/1662227372_v1.jpg', 1, 2);
+
+-- --------------------------------------------------------
+
+
+
+
+-- Constraints for table `bookticket_bookaticket`
+--
+ALTER TABLE `bookticket_bookaticket`
+  ADD CONSTRAINT `bookTicket_bookaticket_bus_id_7f7e68e1_fk_busrv_busInfo_id` FOREIGN KEY (`bus_id`) REFERENCES `busrv_businfo` (`id`),
+  ADD CONSTRAINT `bookTicket_bookaticket_user_id_398ddaae_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
